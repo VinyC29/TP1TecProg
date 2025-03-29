@@ -15,11 +15,11 @@ void ajouterObjetHead(Node* head, void* newData)
 }
                                   
 void ajouterObjet(Node* currNode, void* newData) {
-	Node newNode = { 0 };
-	newNode.data = newData;
-	newNode.next = NULL;
+	Node* newNode = (Node*)allocate(sizeof(Node));
+	newNode->data = newData;
+	newNode->next = NULL;
 	if (currNode->next != NULL) {
-		newNode.next = currNode->next;
+		newNode->next = currNode->next;
 	}
 	currNode->next = &newNode;
 }

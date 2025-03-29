@@ -8,7 +8,7 @@
 
 #define HEAP_SIZE 2048 * 2048 * 4
 static uint8_t* heap = NULL;
-static size_t heap_top = 0;
+static size_t heap_top = 0;                           
 void* allocate(size_t size) {
 	size_t old_top = heap_top;
 	heap_top += size;
@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
 
 	ajouterObjetHead(node, nouvelleObjet);
 
-	ajouterItemAleatoire(node, 3, objets, objectCount);
+	ajouterItemAleatoire(node, 1, objets, objectCount);
 
 	Node* current = node;
 	while (current != NULL) {
