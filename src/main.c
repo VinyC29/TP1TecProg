@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 
 	FILE* input = fopen("tp1_data.csv", "r");
 
-	while(fgets(buffer, sizeof(buffer), input))
+	while (fgets(buffer, sizeof(buffer), input))
 	{
 		Objet* obj;
 
@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 		data = strtok(NULL, ",");
 
 		data = strtok(NULL, ",");
-	
+
 		int value = atoi(data);
 		objets[objectCount].price = value;
 
@@ -58,17 +58,18 @@ int main(int argc, char** argv) {
 
 	ajouterObjetHead(node, nouvelleObjet);
 
-	//ajouterItemAleatoire(node, 3, objets, objectCount);
+	ajouterItemAleatoire(node, 3, objets, objectCount);
 
-	int nb = quantitéItem(node);
-	Node* current = node;  // Commence par le premier élément réel (après head)
+	Node* current = node;
 	while (current != NULL) {
 		Objet* obj = (Objet*)current->data;
 		printf("%s - %zu\n", obj->name, obj->price);
 		current = current->next;
 	}
 
-	supprimerParNom(node, "fiole");
+	node = supprimerParNom(node, "fiole");
+
+	sort(node);
 
 	while (current != NULL) {
 		Objet* obj = (Objet*)current->data;
@@ -76,5 +77,5 @@ int main(int argc, char** argv) {
 		current = current->next;
 	}
 
-	
+
 }

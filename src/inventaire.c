@@ -13,17 +13,17 @@ void ajouterObjetHead(Node* head, void* newData)
 	newNode->next = head->next;
 	head->next = newNode;
 }
-
+                                  
 void ajouterObjet(Node* currNode, void* newData) {
-	Node* newNode = allocate(sizeof(Node));  // Allocation d'un nouveau Node
-	newNode->data = newData;               // Affectation des données au Node
-	newNode->next = NULL;                   // Initialisation du next à NULL
-
+	Node newNode = { 0 };
+	newNode.data = newData;
+	newNode.next = NULL;
 	if (currNode->next != NULL) {
-		newNode->next = currNode->next;    // Relie le nouveau Node à l'ancien
+		newNode.next = currNode->next;
 	}
-	currNode->next = newNode;              // Relie le Node courant au nouveau Node
+	currNode->next = &newNode;
 }
+
 Node* supprimerParNom(Node* head, char* name) {
 	Node* temp = head;
 	Node* last = NULL;
