@@ -4,6 +4,7 @@
 #include <string.h>
 #include <assert.h>
 #include "definition.h"
+#include "inventaire.h"
 
 #define HEAP_SIZE 2048 * 2048 * 4
 static uint8_t* heap = NULL;
@@ -18,8 +19,62 @@ void* allocate(size_t size) {
 int main(int argc, char** argv) {
 	heap = (uint8_t*)malloc(HEAP_SIZE);
 	assert(heap != NULL);
+	Objet objets[32] = { 0 };
+	char buffer[2048];
+	char* data;
+	int objectCount = 0;
 
-    printf("Bienvenue dans mon application nommer monprojet !\n");
-    printf("20 plus 22 donne: %d\n", monprojet_add(20,22));
-    monprojet_ditbonjour();
+	FILE* input = fopen("tp1_data.csv", "r");
+
+	while(fgets(buffer, sizeof(buffer), input))
+	{
+		Objet* obj;
+
+		data = strtok(buffer, ",");
+
+		data = strtok(NULL, ",");
+
+		strcpy(objets[objectCount].name, data);
+
+		data = strtok(NULL, ",");
+
+		data = strtok(NULL, ",");
+	
+		int value = atoi(data);
+		objets[objectCount].price = value;
+
+		objectCount++;
+	}
+
+	fclose(input);
+
+	Node* node = (Node*)allocate(sizeof(Node));
+	node->data = NULL;
+	node->next = NULL;
+
+	Objet* nouvelleObjet = (Objet*)allocate(sizeof(Objet));
+	strcpy(nouvelleObjet->name, "fiole");
+	nouvelleObjet->price = 10;
+
+	ajouterObjetHead(node, nouvelleObjet);
+
+	//ajouterItemAleatoire(node, 3, objets, objectCount);
+
+	int nb = quantitéItem(node);
+	Node* current = node;  // Commence par le premier élément réel (après head)
+	while (current != NULL) {
+		Objet* obj = (Objet*)current->data;
+		printf("%s - %zu\n", obj->name, obj->price);
+		current = current->next;
+	}
+
+	supprimerParNom(node, "fiole");
+
+	while (current != NULL) {
+		Objet* obj = (Objet*)current->data;
+		printf("%s - %zu\n", obj->name, obj->price);
+		current = current->next;
+	}
+
+	
 }
